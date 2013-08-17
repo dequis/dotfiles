@@ -1,0 +1,8 @@
+#!/bin/sh
+name=$(asd)
+mkdir "$HOME/test/asd/$name"
+cd "$HOME/test/asd/$name"
+TMUX= tmux new -d -s "$name"
+tmux linkw -d -s 0:4242 -t "$name":4242
+tmux linkw -d -s 0:9001 -t "$name":9001
+tmux switch-client -t "$name"

@@ -1,0 +1,6 @@
+#!/bin/sh
+tmux kill-window -t 4242
+tmux set -q renumber-windows on
+tmux kill-window -t 9001
+tmux set -q renumber-windows off
+tmx_init

@@ -1,0 +1,9 @@
+#!/bin/sh
+if [ $(tmux lsp -F '#{session_windows}') -gt 3 ]; then
+    tmux display-message "More than three windows active - refusing to nuke"
+    exit
+fi
+session_name=$(tmux lsp -F '#{session_name}')
+tmux switch-client -n
+tmux kill-session -t "$session_name"
+tmux display-message "Nuked $session_name"

@@ -1,0 +1,17 @@
+#!/bin/sh
+tmux new-window -d -c '~' -t 4242 ncmpcpp
+tmux new-window -d -c '~' -t 9001 -n carl0s "ssh carl0s -t tmux attach"
+
+# old window highlight
+#tmux set -qt '$0':4242 window-status-bg brightblack
+#tmux set -qt '$0':4242 window-status-fg white
+
+FMT="#[fg=black,nobold,reverse]#[noreverse,default] #W #[fg=black,nobold,reverse]#[default]";
+
+for i in 4242 9001
+do
+    tmux set -qt '$0':$i window-status-format "$FMT"
+    tmux set -qt '$0':$i window-status-bg colour24
+    tmux set -qt '$0':$i window-status-current-bg colour39
+    tmux set -qt '$0':$i window-status-bell-bg red
+done

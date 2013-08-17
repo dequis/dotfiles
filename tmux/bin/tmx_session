@@ -1,0 +1,4 @@
+#!/bin/sh
+TMUX= tmux new -d -s "$1"
+tmux linkw -d -s 0:4242 -t "$1":4242
+tmux linkw -d -s 0:9001 -t "$1":9001

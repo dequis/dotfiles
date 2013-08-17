@@ -1,0 +1,11 @@
+#!/bin/sh
+counter=$(cat /sys/class/power_supply/battery/charge_counter)
+fgcolor=green
+if [ $counter -lt 50 ]; then
+	fgcolor=yellow
+fi
+if [ $counter -lt 20 ]; then
+	fgcolor=red
+fi
+
+echo -e "#[fg=$fgcolor,bg=colour238] \\u$((2581 + ($counter * 7 / 100))) ${counter}% #[default]"
