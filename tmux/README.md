@@ -8,7 +8,7 @@ my desktop
 
 * statusbar:
 
-![](http://dump.dequis.org/KrfvB.png)
+![](http://dump.dequis.org/RzADi.png)
 
 * window-status-format with rounded corners using [modified powerline font](http://dequis.org/PowerlineSymbols.otf)
 * status-right shows list of sessions, with the current one highlighted
