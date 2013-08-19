@@ -1,0 +1,7 @@
+#!/bin/sh
+win=$(tmux display-message -p '#I')
+if [[ "$win" -gt 1000 ]]; then
+    tmux new-window
+else
+    tmux new-window -a
+fi
