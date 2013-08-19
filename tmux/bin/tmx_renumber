@@ -1,6 +1,14 @@
 #!/bin/sh
-tmux kill-window -t 4242
-tmux set -q renumber-windows on
-tmux kill-window -t 9001
-tmux set -q renumber-windows off
-tmx_init
+# based on http://superuser.com/a/480846/209207
+
+i=0
+tmux list-windows | cut -d: -f1 | while read winindex; do
+    if (( winindex > 1000 )); then
+        # don't touch pinned windows
+        break
+    fi
+    if (( winindex != i )); then
+        tmux move-window -d -s $winindex -t $i
+    fi
+    (( i++ ))
+done
