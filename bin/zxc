@@ -1,0 +1,7 @@
+#!/bin/sh
+fn=$(namehash $1)
+rsync --progress -- "$1" dequis.org:dump/$fn
+url=http://dump.dequis.org/$fn
+echo $url
+echo -n $url | xclip -selection clipboard
+

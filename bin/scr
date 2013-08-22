@@ -1,0 +1,4 @@
+#!/bin/sh
+escrotum $* ~/scrot.png
+optipng -quiet ~/scrot.png
+zxc ~/scrot.png
