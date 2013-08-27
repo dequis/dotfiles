@@ -1,0 +1,2 @@
+#!/bin/sh
+echo '{"command": "gpu", "parameter": "0"}' | nc localhost 4028 | jshon -e GPU -e 0 -e Intensity -u 

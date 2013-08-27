@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# https://aur.archlinux.org/packages/xprintidle/
+idletime=$(xprintidle)
+
+if [ $idletime -lt $((10*60*1000)) ]; then
+    true # dunno
+elif [ $idletime -gt $((10*60*1000)) ]; then
+    bfg-set-intensity 15
+elif [ $idletime -gt $((60*60*1000)) ]; then
+    bfg-set-intensity 17
+fi

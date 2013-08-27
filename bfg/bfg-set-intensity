@@ -1,0 +1,6 @@
+#!/bin/sh
+new=$1
+if [[ $new == -* ]] || [[ $new == +* ]]; then
+    new=$(($(bfg-get-intensity) $new))
+fi
+echo '{"command": "gpuintensity", "parameter": "0,'$new'"}' | nc localhost 4028 | jshon -e STATUS -e 0 -e Msg -u
