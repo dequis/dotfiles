@@ -1,12 +1,22 @@
 #!/bin/sh
 
 # https://aur.archlinux.org/packages/xprintidle/
-idletime=$(xprintidle)
+idletime=$(DISPLAY=:0 xprintidle)
 
-if [ $idletime -lt $((10*60*1000)) ]; then
+set_if_less() {
+    if [ $(bfg-get-intensity) -lt $1 ]; then
+        bfg-set-intensity $1
+    fi
+}
+
+if [ $idletime -lt $((5*60*1000)) ]; then
     true # dunno
-elif [ $idletime -gt $((10*60*1000)) ]; then
-    bfg-set-intensity 15
+elif [ $idletime -lt $((10*60*1000)) ]; then
+    set_if_less 14
+elif [ $idletime -lt $((30*60*1000)) ]; then
+    set_if_less 15
+elif [ $idletime -lt $((60*60*1000)) ]; then
+    set_if_less 16
 elif [ $idletime -gt $((60*60*1000)) ]; then
-    bfg-set-intensity 17
+    set_if_less 17
 fi
