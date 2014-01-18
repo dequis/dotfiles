@@ -10,4 +10,4 @@ word=$(shuf -n1 $DICT_FILE)
 
 echo $word
 [ -t 1 ] || echo $word >&2
-echo -n $word | xclip -selection clipboard > /dev/null
+[[ "$1" == "--noclipboard" ]] || echo -n $word | xclip -selection clipboard > /dev/null

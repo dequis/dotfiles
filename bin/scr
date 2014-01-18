@@ -1,4 +1,20 @@
 #!/bin/sh
-escrotum $* ~/scrot.png
-optipng -quiet ~/scrot.png
-zxc ~/scrot.png
+UPLOAD=y
+if [[ "$1" == "-n" ]]; then
+    shift;
+    UPLOAD=n
+fi
+filename=~/scrot.png
+
+escrotum $* $filename
+optipng -quiet $filename
+if [ $(du -sb $filename | cut -f 1) -gt 500000 ]
+then
+    filename2=~/scrot.jpg
+    convert $filename $filename2
+    filename=$filename2
+fi
+
+if [[ "$UPLOAD" == "y" ]]; then
+    zxc $filename
+fi

@@ -1,2 +1,2 @@
 #!/bin/sh
-echo $(cat -- $1 | openssl dgst -md5 -binary | base64 | head -c 5 | sed -e 's#/#_#g' -e 's#+#-#g')".${1##*.}"
+echo $(cat -- "$1" | openssl dgst -md5 -binary | base64 | head -c 5 | sed -e 's#/#_#g' -e 's#+#-#g')".${1##*.}"
