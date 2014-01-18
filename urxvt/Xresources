@@ -1,0 +1,43 @@
+! X resources file for urxvt
+! features:
+! - proper font fallbacks to support powerline symbols, kannada (for look of disapproval) and japanese
+! - decent font spacing and antialiasing, to mimic VTE
+! - clickable urls
+! - some other annoyances fixed, i forgot
+
+URxvt.scrollBar: false
+URxvt.saveLines: 0
+URxvt.urgentOnBell: true
+URxvt.font: xft:DejaVu Sans Mono:size=10,xft:PowerlineSymbols:pixelsize=12,xft:Noto Sans Kannada:style=Regular:pixelsize=14,xft:Mona:style=Regular:pixelsize=14
+URxvt.scrollTtyKeypress: true
+URxvt.copyCommand: xclip -i -selection clipboard
+URxvt.letterSpace: 0
+URxvt.externalBorder: 0
+
+URxvt.iso14755: false
+URxvt.iso14755_52: false
+
+URxvt.color1: #CC0000
+URxvt.color2: #4E9A06
+URxvt.color3: #EDD400
+URxvt.color4: #0000AA
+URxvt.color5: #AA00AA
+URxvt.color6: #06989A
+URxvt.color7: #D3D7CF
+URxvt.color8: #303030
+
+URxvt.background: #141414
+URxvt.foreground: #eeeeee
+
+URxvt.perl-ext-common: default,url-select,clipboard
+URxvt.matcher.button: 3
+URxvt.url-select.launcher:  firefox
+URxvt.url-select.underline: true
+URxvt.clipboard.autocopy: true
+URxvt.selection.pattern-0: \\|([^|]+)\\|
+
+Xft.dpi:        96
+Xft.antialias:  true
+Xft.rgba:       rgba
+Xft.hinting:    true
+Xft.hintstyle:  hintslight
