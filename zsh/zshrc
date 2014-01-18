@@ -1,0 +1,97 @@
+HISTFILE=~/.histfile
+HISTSIZE=1000000
+SAVEHIST=1000000
+setopt appendhistory nomatch
+
+# The following lines were added by compinstall
+zstyle :compinstall filename '/home/dx/.zshrc'
+
+autoload -Uz compinit
+compinit
+# End of lines added by compinstall
+
+PATH="$HOME/bin:$PATH"
+PROMPT="[%n@%m %3~]%(#.#.$) "
+setopt nobeep
+
+# aliases
+alias ls='ls --color=auto --hide="*.pyc"'
+alias addon-sdk="cd /opt/addon-sdk-git && source bin/activate; cd -"
+alias quvi-get='quvi --exec="wget %u -O %t.%e"'
+alias ipy='ipython2'
+
+# functions
+mkcdir() {
+    mkdir $1
+    cd $1
+}
+
+mkasd() {
+    if [ "$1" != "-f" ]; then
+        cd "$HOME/test/asd"
+    fi
+    mkcdir $(asd --noclipboard)
+}
+
+dhsh() {
+    du -sh $* | sort -h
+}
+
+man() {
+    # TODO: improve these colors some day
+    env \
+        LESS_TERMCAP_mb=$(printf "\e[1;31m") \
+        LESS_TERMCAP_md=$(printf "\e[1;31m") \
+        LESS_TERMCAP_me=$(printf "\e[0m") \
+        LESS_TERMCAP_se=$(printf "\e[0m") \
+        LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
+        LESS_TERMCAP_ue=$(printf "\e[0m") \
+        LESS_TERMCAP_us=$(printf "\e[1;32m") \
+        man "$@"
+}
+
+zstyle ':completion:*:pacman:*' force-list always
+zstyle ':completion:*:*:pacman:*' menu yes select
+
+# force 256 colors xterm
+#if [ -n "$DISPLAY" -a "$TERM" == "xterm" ]; then
+#    export TERM=xterm-256color
+#fi
+
+
+# stolen from oh-my-zsh
+
+bindkey -e
+#bindkey '\ew' kill-region
+bindkey -s '\el' "ls\n"
+bindkey '^r' history-incremental-search-backward
+bindkey "^[[5~" up-line-or-history
+bindkey "^[[6~" down-line-or-history
+
+#bindkey '^[[A' up-line-or-search
+#bindkey '^[[B' down-line-or-search
+
+bindkey "^[[H" beginning-of-line
+bindkey "^[[1~" beginning-of-line
+bindkey "^[OH" beginning-of-line
+bindkey "^[[F"  end-of-line
+bindkey "^[[4~" end-of-line
+bindkey "^[OF" end-of-line
+#bindkey ' ' magic-space    # also do history expansion on space
+
+bindkey "^[[1;5C" forward-word
+bindkey "^[[1;5D" backward-word
+
+bindkey '^[[Z' reverse-menu-complete
+
+# Make the delete key (or Fn + Delete on the Mac) work instead of outputting a ~
+bindkey '^?' backward-delete-char
+bindkey "^[[3~" delete-char
+bindkey "^[3;5~" delete-char
+bindkey "\e[3~" delete-char
+
+
+autoload -U edit-command-line
+zle -N edit-command-line
+bindkey "^X^E" edit-command-line
+
