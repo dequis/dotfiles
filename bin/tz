@@ -1,0 +1,14 @@
+#!/bin/sh
+zoneinfo=/usr/share/zoneinfo/
+zone=$1
+real_zone=$(
+    find $zoneinfo -type f |
+    sed "s#^$zoneinfo##" | grep -i "\<$zone\$" |
+    grep -v -e '^right/' -e '^posix/' |
+    awk '{ print length, $0 }' |
+    sort -n |
+    cut -d" " -f2- |
+    tr '+-' '-+' |
+    head -n1
+)
+TZ=$real_zone date '+%H:%M %d %b [%Z, %z]'

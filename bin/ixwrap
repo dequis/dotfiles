@@ -1,0 +1,13 @@
+#!/bin/sh
+if [ -z $1 ]
+then
+    echo -n 'ixwrap $ '
+    read command
+else
+    command=$*
+fi
+
+(
+echo '$' $command
+$command
+) | tee /dev/stderr | ix

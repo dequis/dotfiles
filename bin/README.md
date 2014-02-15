@@ -6,5 +6,7 @@ Small scripts and shell scripts I wrote
 * scr: takes a screenshot and uploads it using zxc. uses [escrotum](https://github.com/Roger/escrotum) instead of scrot
 * lsr: list N most recent files, where N is the first argument. wraps ls mostly transparently
 * sendmail: cheapest sendmail, i made this one back in 2009, place in /usr/bin/sendmail and get cron emails and other stuff in ~/mail
+* tz: show the current time of a specified timezone
+* ixwrap: wrap a command and send the output to [ix](http://ix.io), including the commandline itself
 
 tmux related scripts are in tmux/bin/ in this repo
