@@ -1,0 +1,22 @@
+diff --git a/st.c b/st.c
+index cad61bf..1ea8b6c 100644
+--- a/st.c
++++ b/st.c
+@@ -3160,9 +3160,14 @@ xdraws(char *s, Glyph base, int x, int y, int charlen, int bytelen) {
+ 	}
+ 
+ 	if(base.mode & ATTR_REVERSE) {
+-		temp = fg;
+-		fg = bg;
+-		bg = temp;
++		if (bg == fg) {
++			bg = &dc.col[defaultfg];
++			fg = &dc.col[defaultbg];
++		} else {
++			temp = fg;
++			fg = bg;
++			bg = temp;
++		}
+ 	}
+ 
+ 	if(base.mode & ATTR_BLINK && term.mode & MODE_BLINK)
