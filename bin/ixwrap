@@ -9,5 +9,5 @@ fi
 
 (
 echo '$' $command
-$command
+sh -c "$command" 2>&1
 ) | tee /dev/stderr | ix
