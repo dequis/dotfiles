@@ -9,5 +9,6 @@ Small scripts and shell scripts I wrote
 * tz: show the current time of a specified timezone
 * ixwrap: wrap a command and send the output to [ix](http://ix.io), including the commandline itself
 * dix: shitty replacement for ix - uploads to dump instead using zxc
+* qtinfo: writes someting to the qtile text widget named "info"
 
 tmux related scripts are in tmux/bin/ in this repo
