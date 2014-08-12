@@ -1,0 +1,3 @@
+#!/bin/sh
+cat > /tmp/dixdump.txt
+zxc /tmp/dixdump.txt
