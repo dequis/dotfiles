@@ -1,7 +1,9 @@
 #!/bin/sh
 fn=$(namehash "$1")
-rsync --progress -- "$1" dequis.org:dump/$fn
+qtinfo '[zxc] Starting upload'
+rsync -vp --bwlimit=70k --progress --chmod=F664 -- "$1" dequis.org:dump/$fn 2>&1
 url=http://dump.dequis.org/$fn
 echo $url
 echo -n $url | xclip -selection clipboard
+qtinfo '[zxc]' $url
 

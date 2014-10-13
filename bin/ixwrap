@@ -1,5 +1,5 @@
 #!/bin/sh
-if [ -z $1 ]
+if [ "x$1" == "x" ]
 then
     echo -n 'ixwrap $ '
     read command

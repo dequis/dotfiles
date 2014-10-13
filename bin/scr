@@ -1,4 +1,5 @@
 #!/bin/sh
+qtinfo '[scr] Started'
 UPLOAD=y
 if [[ "$1" == "-n" ]]; then
     shift;
@@ -6,11 +7,19 @@ if [[ "$1" == "-n" ]]; then
 fi
 filename=~/scrot.png
 
-escrotum $* $filename
+if ! escrotum $* $filename
+then
+    qtinfo '[scr] Cancelled'
+    echo "Cancelled"
+    exit 1
+fi
+
+qtinfo '[scr] Optimizing'
 optipng -quiet $filename
 if [ $(du -sb $filename | cut -f 1) -gt 500000 ]
 then
     filename2=~/scrot.jpg
+    qtinfo '[scr] Converting to jpg'
     convert $filename $filename2
     filename=$filename2
 fi
