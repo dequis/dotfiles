@@ -1,8 +1,29 @@
 " vim config
 " mostly shit stolen from other places
 
-" sanity
+" vundle
 set nocompatible
+filetype off
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'gmarik/Vundle.vim'
+
+Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/syntastic'
+Plugin 'chrisbra/Recover.vim'
+Plugin 'chrisbra/SudoEdit.vim'
+Plugin 'ConradIrwin/vim-bracketed-paste'
+Plugin 'thinca/vim-localrc'
+Plugin 'tpope/vim-markdown'
+Plugin 'tpope/vim-sleuth'
+Plugin 'xolox/vim-misc'
+Plugin 'xolox/vim-session'
+
+call vundle#end()
+filetype plugin indent on
+
+" sanity
 set magic
 set fileencoding=utf-8
 set nobackup
@@ -17,9 +38,8 @@ syntax on
 set softtabstop=4
 set shiftwidth=4
 set expandtab
-set smarttab
 set backspace=indent,eol,start
-filetype plugin indent on
+set list listchars=tab:»\ ,trail:·
 
 " wildmenu
 set wildmode=longest:full
@@ -52,11 +72,11 @@ cabbr WQ wq
 cabbr Wq wq
 
 " indentation styles for different formats
-au FileType xhtml setlocal sts=2 ts=2 sw=2
-au FileType html setlocal sts=2 ts=2 sw=2
-au FileType htmldjango setlocal sts=2 ts=2 sw=2
-au FileType c setlocal sts=0 ts=8 sw=8 noexpandtab
-au FileType cpp setlocal sts=0 ts=8 sw=8 noexpandtab
+"au FileType xhtml setlocal sts=2 ts=2 sw=2
+"au FileType html setlocal sts=2 ts=2 sw=2
+"au FileType htmldjango setlocal sts=2 ts=2 sw=2
+"au FileType c setlocal sts=0 ts=8 sw=8 noexpandtab cindent
+"au FileType cpp setlocal sts=0 ts=8 sw=8 noexpandtab
 
 " colors
 set t_Co=256
@@ -68,12 +88,12 @@ let g:xxxdx = matchadd("XXXDX", "XXXDX")
 
 " highlight after 80 cols (only for python code)
 highlight ExtraWhitespace ctermbg=215 ctermfg=black
-highlight ExtraWhitespace2 ctermbg=202 ctermfg=black
+"highlight ExtraWhitespace2 ctermbg=202 ctermfg=black
 
 function! HighlightAfter80Cols()
-    let w:m1=matchadd('ExtraWhitespace', '\%<81v.\%>77v', -1)
-    let w:m2=matchadd('ExtraWhitespace2', '\%>80v.\+', -1)
-    let w:m3=matchadd('ExtraWhitespace2', '\%>80v.\+', -1)
+    let w:m1=matchadd('ExtraWhitespace', '\%<81v.\%>80v', -1)
+    "let w:m2=matchadd('ExtraWhitespace2', '\%>80v.\+', -1)
+    "let w:m3=matchadd('ExtraWhitespace2', '\%>80v.\+', -1)
 endfunction
 
 au FileType python call HighlightAfter80Cols() 
@@ -90,6 +110,10 @@ let NERDTreeIgnore=['\.pyc$']
 
 " syntastic
 let g:syntastic_python_checkers = ['pyflakes']
+let g:syntastic_c_checkers = ['gcc']
+
+let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
+nnoremap <C-w>E :SyntasticCheck<CR> :SyntasticToggleMode<CR>
 
 " localrc
 let g:localrc_filename = '.vim.custom'
@@ -98,5 +122,21 @@ let g:localrc_filename = '.vim.custom'
 autocmd BufRead *.vala,*.vapi set efm=%f:%l.%c-%[%^:]%#:\ %t%[%^:]%#:\ %m
 au BufRead,BufNewFile *.vala,*.vapi setfiletype vala
 
-" pathogen
-execute pathogen#infect()
+" recover plugin
+let g:RecoverPlugin_Edit_Unmodified = 1
+
+function! DxTodoPostprocess()
+    let l:winview = winsaveview()
+    %!~/test/dxtodo/postprocess
+    call winrestview(l:winview)
+endfunction
+
+" what am i even doing
+autocmd BufRead dxtodo setlocal sts=30 ts=30 sw=30 noet
+autocmd BufWrite dxtodo call DxTodoPostprocess()
+
+" session
+
+let g:session_autosave = 'no'
+let g:session_autoload = 'no'
+let g:session_command_aliases = 1
